@@ -3,10 +3,6 @@
 		{
 			sender: 'Dr. Watson',
 			content: "I'm a medical AI language model trained in cardiology. How can I assist you today?"
-		},
-		{
-			sender: 'Me',
-			content: "I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today?"
 		}
 	];
 	let newMessage,
@@ -35,10 +31,16 @@
 <div class="container mx-auto h-screen flex flex-col p-4">
 	<div class="overflow-y-auto flex-grow" bind:this={messageContainer}>
 		{#each messages as message}
-			<div class=" p-4 rounded-lg shadow mt-4 {message.sender === 'Me' ? 'bg-gray-200' : 'bg-blue-400'}">
+			<div
+				class=" p-4 rounded-lg shadow mt-4 {message.sender === 'Me'
+					? 'bg-gray-200'
+					: 'bg-blue-400'}"
+			>
 				<div class="ml-4 mr-4">
-					<p class=" font-bold {message.sender === 'Me' ? 'text-gray-700' : 'text-black'}">{message.sender}</p>
-					<p class="{message.sender === 'Me' ? 'text-gray-600' : 'text-black'}">{message.content}</p>
+					<p class=" font-bold {message.sender === 'Me' ? 'text-gray-700' : 'text-black'}">
+						{message.sender}
+					</p>
+					<p class={message.sender === 'Me' ? 'text-gray-600' : 'text-black'}>{message.content}</p>
 				</div>
 			</div>
 		{/each}
