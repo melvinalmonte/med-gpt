@@ -28,13 +28,11 @@
 	let messageContainer;
 </script>
 
-<div class="container mx-auto h-screen flex flex-col p-4">
+<div class="container mx-auto h-screen flex flex-col p-4 rounded-lg border">
 	<div class="overflow-y-auto flex-grow" bind:this={messageContainer}>
 		{#each messages as message}
 			<div
-				class=" p-4 rounded-lg shadow mt-4 {message.sender === 'Me'
-					? 'bg-gray-200'
-					: 'bg-blue-400'}"
+				class="p-4 rounded-lg shadow mt-4 {message.sender === 'Me' ? 'bg-gray-200' : 'bg-blue-400'}"
 			>
 				<div class="ml-4 mr-4">
 					<p class=" font-bold {message.sender === 'Me' ? 'text-gray-700' : 'text-black'}">
