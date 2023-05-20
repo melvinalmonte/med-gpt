@@ -1,4 +1,5 @@
 <script>
+	let loading = false;
 	let messages = [
 		{
 			sender: 'Dr. Watson',
@@ -9,6 +10,7 @@
 		content = '';
 
 	const handleMessageSubmit = async () => {
+		loading = true;
 		if (newMessage.trim() !== '') {
 			content = newMessage;
 			messages = [...messages, { sender: 'Me', content: newMessage }];
@@ -22,7 +24,8 @@
 			body: JSON.stringify({ message: content })
 		});
 		const res = await req.json();
-		messages = [...messages, { sender: 'Dr. Juan Watson', content: res[0].message.content }];
+		messages = [...messages, { sender: 'Dr. Watson', content: res[0].message.content }];
+		loading = false;
 	};
 
 	let messageContainer;
@@ -43,6 +46,9 @@
 			</div>
 		{/each}
 	</div>
+	{#if loading}
+		<p>Loading response, please wait...</p>
+	{/if}
 
 	<div class="sticky bottom-0 bg-gray-200 p-4 rounded-lg shadow">
 		<form on:submit|preventDefault={handleMessageSubmit} class="flex">
