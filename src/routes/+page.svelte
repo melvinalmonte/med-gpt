@@ -1,6 +1,13 @@
 <script>
 	let messages = [
-		{ sender: 'Dr. Juan Watson', content: "I'm an medical AI language model. How can I assist you today?" }
+		{
+			sender: 'Dr. Watson',
+			content: "I'm a medical AI language model trained in cardiology. How can I assist you today?"
+		},
+		{
+			sender: 'Me',
+			content: "I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today? I'm a medical AI language model trained in cardiology. How can I assist you today?"
+		}
 	];
 	let newMessage,
 		content = '';
@@ -8,7 +15,7 @@
 	const handleMessageSubmit = async () => {
 		if (newMessage.trim() !== '') {
 			content = newMessage;
-			messages = [...messages, { sender: 'User', content: newMessage }];
+			messages = [...messages, { sender: 'Me', content: newMessage }];
 			newMessage = '';
 		}
 		const req = await fetch('/api/gpt', {
@@ -28,16 +35,10 @@
 <div class="container mx-auto h-screen flex flex-col p-4">
 	<div class="overflow-y-auto flex-grow" bind:this={messageContainer}>
 		{#each messages as message}
-			<div
-				class="bg-gray-200 p-4 rounded-lg shadow mt-4 {message.sender === 'User'
-					? 'flex-row-reverse'
-					: ''}"
-			>
-				<div class="flex">
-					<div class="ml-4">
-						<p class="text-gray-700 font-bold">{message.sender}</p>
-						<p class="text-gray-600">{message.content}</p>
-					</div>
+			<div class=" p-4 rounded-lg shadow mt-4 {message.sender === 'Me' ? 'bg-gray-200' : 'bg-blue-400'}">
+				<div class="ml-4 mr-4">
+					<p class=" font-bold {message.sender === 'Me' ? 'text-gray-700' : 'text-black'}">{message.sender}</p>
+					<p class="{message.sender === 'Me' ? 'text-gray-600' : 'text-black'}">{message.content}</p>
 				</div>
 			</div>
 		{/each}
