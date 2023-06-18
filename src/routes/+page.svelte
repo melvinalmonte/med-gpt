@@ -6,7 +6,7 @@
 	});
 </script>
 
-<div class="container mx-auto h-screen flex flex-col p-4 rounded-lg">
+<div class="container mx-auto flex flex-col p-4 rounded-lg chat-container">
 	<div class="navbar bg-base-100">
 		<div class="normal-case text-xl">Juan Watson, MD.</div>
 	</div>
