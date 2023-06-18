@@ -1,69 +1,33 @@
-<script>
-	let loading = false;
-	let messages = [
-		{
-			sender: 'Dr. Watson',
-			content: "I'm a medical AI language model trained in cardiology. How can I assist you today?"
-		}
-	];
-	let newMessage,
-		content = '';
+<script lang="ts">
+	import { useChat } from 'ai/svelte';
 
-	const handleMessageSubmit = async () => {
-		loading = true;
-		if (newMessage.trim() !== '') {
-			content = newMessage;
-			messages = [...messages, { sender: 'Me', content: newMessage }];
-			newMessage = '';
-		}
-		const req = await fetch('/api/gpt', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ message: content })
-		});
-		const res = await req.json();
-		messages = [...messages, { sender: 'Dr. Watson', content: res[0].message.content }];
-		loading = false;
-	};
-
-	let messageContainer;
+	const { messages, handleSubmit, input } = useChat({
+		api: '/chat'
+	});
 </script>
 
-<div class="container mx-auto h-screen flex flex-col p-4 rounded-lg border">
-	<div class="overflow-y-auto flex-grow" bind:this={messageContainer}>
-		{#each messages as message}
-			<div
-				class="p-4 rounded-lg shadow mt-4 {message.sender === 'Me' ? 'bg-gray-200' : 'bg-blue-400'}"
-			>
-				<div class="ml-4 mr-4">
-					<p class=" font-bold {message.sender === 'Me' ? 'text-gray-700' : 'text-black'}">
-						{message.sender}
-					</p>
-					<p class={message.sender === 'Me' ? 'text-gray-600' : 'text-black'}>{message.content}</p>
+<div class="container mx-auto h-screen flex flex-col p-4 rounded-lg">
+	<div class="navbar bg-base-100">
+		<div class="normal-case text-xl">Juan Watson, MD.</div>
+	</div>
+	<div class="overflow-y-auto flex-grow">
+		{#each $messages as message}
+			<div class="chat {message.role === 'assistant' ? 'chat-start' : 'chat-end'}">
+				<div
+					class="chat-bubble {message.role === 'assistant'
+						? 'chat-bubble-primary'
+						: 'chat-bubble-secondary'}"
+				>
+					{message.content}
 				</div>
 			</div>
 		{/each}
 	</div>
-	{#if loading}
-		<p>Loading response, please wait...</p>
-	{/if}
-
-	<div class="sticky bottom-0 bg-gray-200 p-4 rounded-lg shadow">
-		<form on:submit|preventDefault={handleMessageSubmit} class="flex">
-			<input
-				type="text"
-				class="flex-1 border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-				placeholder="Type your message..."
-				bind:value={newMessage}
-			/>
-			<button
-				type="submit"
-				class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-r-lg"
-			>
-				Send
-			</button>
-		</form>
-	</div>
+	<form class="join w-full p-4" on:submit={handleSubmit}>
+		<textarea
+			class="input w-full textarea textarea-primary join-item"
+			bind:value={$input}
+			placeholder="Ask me a medical related question"></textarea>
+		<button class="btn btn-outline btn-primary join-item" type="submit">Send</button>
+	</form>
 </div>

@@ -2,4 +2,6 @@
 	import '../styles/globals.scss';
 </script>
 
-<slot />
+<div class="container mx-auto">
+	<slot />
+</div>
