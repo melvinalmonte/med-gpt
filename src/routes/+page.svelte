@@ -23,7 +23,9 @@
 	}
 
 </script>
-
+<svelte:head>
+	<title>Dr. Juan Watson</title>
+</svelte:head>
 <div class="container mx-auto flex flex-col p-4 rounded-lg h-full">
 	<div class="navbar ">
 		<div class="normal-case text-xl">Juan Watson, MD.</div>
