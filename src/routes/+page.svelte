@@ -6,8 +6,8 @@
 	});
 </script>
 
-<div class="container mx-auto flex flex-col p-4 rounded-lg h-full w-full">
-	<div class="navbar bg-base-100">
+<div class="container mx-auto flex flex-col p-4 rounded-lg h-full">
+	<div class="navbar ">
 		<div class="normal-case text-xl">Juan Watson, MD.</div>
 	</div>
 	<div class="overflow-y-auto flex-grow">
@@ -23,7 +23,7 @@
 			</div>
 		{/each}
 	</div>
-	<form class="join w-full p-4" on:submit={handleSubmit}>
+	<form class="join " on:submit={handleSubmit}>
 		<textarea
 			class="input w-full textarea textarea-primary join-item"
 			bind:value={$input}
