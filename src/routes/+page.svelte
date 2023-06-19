@@ -6,7 +6,7 @@
 	});
 </script>
 
-<div class="container mx-auto flex flex-col p-4 rounded-lg h-full">
+<div class="container mx-auto flex flex-col p-4 rounded-lg h-full w-full">
 	<div class="navbar bg-base-100">
 		<div class="normal-case text-xl">Juan Watson, MD.</div>
 	</div>
@@ -27,8 +27,7 @@
 		<textarea
 			class="input w-full textarea textarea-primary join-item"
 			bind:value={$input}
-			placeholder="Ask me a medical related question"
-		/>
+			placeholder="Ask me a medical related question"></textarea>
 		<button class="btn btn-outline btn-primary join-item" type="submit">Send</button>
 	</form>
 </div>
