@@ -1,16 +1,34 @@
 <script lang="ts">
 	import { useChat } from 'ai/svelte';
+	import {afterUpdate} from "svelte";
 
 	const { messages, handleSubmit, input } = useChat({
 		api: '/chat'
 	});
+
+	let element;
+	const scrollToBottom = async (node) => {
+		node.scroll({
+			top: node.scrollHeight,
+			behavior: "smooth"
+		})
+	}
+
+	afterUpdate(() => {
+		if(messages) scrollToBottom(element)
+	})
+
+	if(messages && element){
+		scrollToBottom(element)
+	}
+
 </script>
 
 <div class="container mx-auto flex flex-col p-4 rounded-lg h-full">
 	<div class="navbar ">
 		<div class="normal-case text-xl">Juan Watson, MD.</div>
 	</div>
-	<div class="overflow-y-auto flex-grow">
+	<div class="overflow-y-auto flex-grow" bind:this={element}>
 		{#each $messages as message}
 			<div class="chat {message.role === 'assistant' ? 'chat-start' : 'chat-end'}">
 				<div
