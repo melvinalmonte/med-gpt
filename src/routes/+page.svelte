@@ -32,7 +32,7 @@
 	</div>
 	<div class="overflow-y-auto flex-grow" bind:this={element}>
 		{#each $messages as message}
-			<div class="chat {message.role === 'assistant' ? 'chat-start' : 'chat-end'}">
+			<div class="chat {message.role === 'assistant' ? 'chat-start' : 'chat-end'} mt-4 mb-4">
 				<div
 					class="chat-bubble {message.role === 'assistant'
 						? 'chat-bubble-primary'
